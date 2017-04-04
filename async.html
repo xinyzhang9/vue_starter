@@ -1,0 +1,26 @@
+<html>
+<head>
+	<title>get started with vue</title>
+	<meta charset='utf-8'>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.6/lodash.min.js"></script>
+	<script src="https://unpkg.com/vue"></script>
+	<link rel="stylesheet" type="text/css" href="async.css">
+</head>
+<body>
+	<div id="card">
+		<header>{{ title }}</header>
+		<form v-on:submit.prevent='addItem'>
+			<input id = 'itemForm' v-model = 'input'>
+			<button v-bind:disabled='buttonDisabled'>{{ buttonText }}</button>
+		</form>
+		<ul>
+			<li v-for='(item, index) in items'>
+				<span>{{ item }}</span>
+			</li>
+		</ul>
+	</div>
+
+	
+	<script type="text/javascript" src = 'async.js'></script>
+</body>
+</html>
