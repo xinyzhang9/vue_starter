@@ -1,0 +1,56 @@
+<html>
+<head>
+	<title>bind value to input fields</title>
+	<meta charset='utf-8'>
+	<script src="https://unpkg.com/vue"></script>
+	<link rel="stylesheet" type="text/css" href="input_binding.css">
+</head>
+<body>
+	<div id="app">
+		<h4>Check Boxes</h4>
+		<input type='checkbox' id = 'checkbox' v-model='checked'>
+		<label for='checkbox'>This box is {{ checked ? 'checked' : 'unchecked' }}</label>
+		<hr>
+		<h4>Ratio Buttons</h4>
+		<template v-for='dino in dinos'>
+			<label>
+				<input type='radio' v-bind:value='dino' v-model='chosenDino' />
+				{{ dino }}
+			</label><br>
+		</template>
+		<span>Favorite: {{ chosenDino }}</span>
+		<hr>
+
+		<h4>Multi Select</h4>
+		<select v-model='selected' multiple>
+			<option v-for='period in periods' v-bind:value='period.value'>
+				{{ period.name }}
+			</option>
+		</select><br>
+		<span>Selected IDs: {{ selected }}</span>
+		<hr>
+		
+		<h4>Multiple messages: </h4>
+		<textarea v-model='message' placeholder='add multiple lines'></textarea>
+		<p style='white-space: pre'>{{ message }}</p>
+	</div>
+	<script type="text/javascript">
+		var app = new Vue({
+			el: '#app',
+			data: {
+				checked: false,
+				selected: [],
+				chosenDino: '',
+				single: '',
+				message: '',
+				dinos: ['Triceratops','Velociraptor','Tyrannosaurus'],
+				periods: [
+					{ name: 'Triassic', value: 1},
+					{ name: 'Jurassic', value: 2},
+					{ name: 'Cretaceous', value: 3}
+				]
+			}
+		})
+	</script>
+</body>
+</html>
