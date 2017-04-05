@@ -1,0 +1,51 @@
+<html>
+<head>
+	<title>watch example</title>
+	<meta charset='utf-8'>
+	<script src="https://unpkg.com/vue"></script>
+	<link rel="stylesheet" type="text/css" href="condition.css">
+</head>
+<body>
+	<div id="card">
+		<header> {{ title }}</header>
+		<form v-on:submit.prevent='addItem'>
+			<input id='itemForm' v-model='input'>
+			<button>Add Dinosaur</button>
+		</form>
+		<template v-if='dinos.length > 0'>
+			<h4>Dinosaur</h4>
+			<ul>
+				<li v-for='dino in dinos'>
+					<button v-show='dino.quantity < 5' v-on:click='dino.quantity += 1'>+</button>
+					{{ dino.quantity}}
+					<button v-show='dino.quantity > 1' v-on:click='dino.quantity -= 1'>-</button>
+					{{ dino.name }}<button v-on:click='removeItem' class='extinct'>Make Extinct</button>
+				</li>
+			</ul>
+		</template>
+		<p v-else>You have no Dinosaurs yet</p>
+	</div>
+	<script type="text/javascript">
+		var card = new Vue({
+			el: '#card',
+			data:{
+				title: 'Epic Dinosaur Counter',
+				input: '',
+				dinos: [
+					{ name: 'Triceratops', quantity: 4},
+					{ name: 'Velociraptors', quantity: 3}
+				]
+			},
+			methods: {
+				addItem: function(){
+					if(!this.input) return;
+					this.dinos.push({ name: this.input, quantity: 1});
+				},
+				removeItem: function(dino){
+					this.dinos.splice(dino,1);
+				}
+			}
+		})
+	</script>
+</body>
+</html>
