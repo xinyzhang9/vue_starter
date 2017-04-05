@@ -1,0 +1,33 @@
+<html>
+<head>
+	<title>events v-on</title>
+	<meta charset='utf-8'>
+	<script src="https://unpkg.com/vue"></script>
+	<link rel="stylesheet" type="text/css" href="events.css">
+</head>
+<body>
+	<div id="card">
+		<header> {{ title }}</header>
+		<form v-on:submit.prevent='addDinos'>
+			<button type='submit'>Add {{ amount }} Dinosaurs</button>
+			<input type='number' v-model.number='amount' min='0' max='10'/>
+		</form>
+		<p>You have {{ total }} dinosaurs!</p>
+	</div>
+	<script type="text/javascript">
+		var card = new Vue({
+			el: '#card',
+			data: {
+				title: 'Dinosaurs',
+				total: 0,
+				amount: 0
+			},
+			methods: {
+				addDinos: function(){
+					this.total += parseInt(this.amount);
+				}
+			}
+		})
+	</script>
+</body>
+</html>
