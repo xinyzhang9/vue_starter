@@ -1,0 +1,44 @@
+<html>
+<head>
+	<title>reusable components</title>
+	<meta charset='utf-8'>
+	<script src="https://unpkg.com/vue"></script>
+	<link rel="stylesheet" type="text/css" href="components.css">
+</head>
+<body>
+	<div id="counter-event-example">
+		<p>{{ total }}</p>
+		<button-counter v-on:haha='incrementTotal'></button-counter>
+		<button-counter v-on:haha='incrementTotal'></button-counter>
+	</div>
+
+	<script type="text/javascript">
+		Vue.component('button-counter',{
+			template: '<button v-on:click="increment">{{ counter }}</button>',
+			data: function(){
+				return {
+					counter: 0
+				}
+			},
+			methods: {
+				increment: function(){
+					this.counter += 1;
+					this.$emit('haha');
+				}
+			}
+		})
+
+		new Vue({
+			el:'#counter-event-example',
+			data: {
+				total: 0
+			},
+			methods: {
+				incrementTotal: function(){
+					this.total += 1
+				}
+			}
+		})
+	</script>
+</body>
+</html>
