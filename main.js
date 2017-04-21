@@ -51,7 +51,7 @@ var app6 = new Vue({
 
 Vue.component('todo-item',{
 	props: ['todo'],
-	template: '<li>{{ todo.text }}</li>'
+	template: '<li>this is {{ todo.text }}</li>'
 })
 
 var app7 = new Vue({

@@ -1,0 +1,72 @@
+<html>
+<head>
+	<title>skill tree</title>
+	<meta charset='utf-8'>
+	<script src="https://unpkg.com/vue"></script>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<div id = 'card'>
+		<header>{{title}}</header>
+		<form v-on:submit='addSkill'>
+			<input id='skillForm' type='text' v-model='input'>
+			<button>Add Skill</button>
+		</form>
+		<ul>
+			<li v-for="skill in skills">
+				<button v-on:click='skill.point+=1'>+</button>
+				{{ skill.point }}
+				<button v-on:click='skill.point-=1'>-</button>
+				{{ skill.name }}
+				<button v-on:click='forgetSkill' class='extinct'>Forget</button>
+			</li>
+		</ul>
+		<ul>
+			<li>Total points {{totalPoints}} <span>Updated: {{ pointsUpdated }}</span></li>
+			<li>Total skills {{totalSkills}} <span>Updated: {{ skillsUpdated }}</span></li>
+		</ul>
+	</div>
+	<script type="text/javascript">
+		var card = new Vue({
+			el:'#card',
+			data:{
+				title:'Skill Tree',
+				pointsUpdated:-1,
+				skillsUpdated:-1,
+				input:'',
+				skills:[
+					{ name:'shooting', point:1 },
+					{ name:'dribbling', point:1 },
+				],
+
+			},
+			computed:{
+				totalPoints: function(){
+					this.pointsUpdated += 1;
+					var sum = 0;
+					var skills = this.skills;
+					for(i in skills){
+						sum += skills[i].point
+					}
+					return sum;
+				},
+				totalSkills: function(){
+					this.skillsUpdated += 1;
+					return this.skills.length;
+				}
+			},
+			methods:{
+				addSkill: function(e){
+					e.preventDefault();
+					if(!this.input) return;
+					this.skills.push({name: this.input, point: 1});
+					this.input = ''
+				},
+				forgetSkill: function(skill){
+					this.skills.splice(skill,1);
+				}
+			}
+		})
+	</script>
+</body>
+</html>
